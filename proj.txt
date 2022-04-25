@@ -1,0 +1,11 @@
+Fonctions à avoir :
+ - lire le fichier
+ - générer un graphe  (bibliothèques python)
+ - vérifier le contenu du fichier (matrice d'adjacence ou pas) (vérifier le EDGE_WEIGHT_TYPE)
+ - si matrice d'adjacence, la convertir en tableau à deux dimensions (dynamique ?) [inverser triangle dans le tableau]
+ - si pas de matrice d'adjacence :
+        - calculer distances à partir des coordonnées
+        - mettre ces distances sur tableau 2 dimensions (dynamique ?)
+ - trouver chemin qui passe une et une seule fois par chaque noeud
+ - trouver chemin [...] le plus court
+ - faire un affichage propre
