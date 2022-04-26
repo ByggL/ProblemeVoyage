@@ -1,4 +1,8 @@
 import tsplib95
 
-problem = tsplib95.load("C:/Users/samue/PycharmProjects/ProblèmeVoyage/aayg29.tsp")
-
+fic = open("aayg29.tsp", "r")
+fullStr: str = fic.read()
+lines = fic.readlines()
+print(fullStr)
+for line in fic:
+    print(lines[line])
