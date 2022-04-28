@@ -10,7 +10,7 @@ def Distance(x1 : int , y1 : int , x2 : int , y2 : int):
 
 def Affichage(Tab , dimensions: int):
     for i in range(dimensions-1):
-        for j in range(dimensions-i):
+        for j in range(dimensions-1-i):
             print(Tab[i][j])
 
 def Lecture_Fichier():
@@ -59,7 +59,7 @@ def listToTab(data: list, dimensions: int):
         Tab.append([0] * (dimensions-1))
 
     for i in range(dimensions-1):
-        for j in range(dimensions - i):
+        for j in range(dimensions - 1 - i):
             Tab[i][j] = int(data[X])
             X += 1
     Affichage(Tab,dimensions)
