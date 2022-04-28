@@ -1,3 +1,12 @@
+from math import *
+
+def Carre (x: int):
+    return x * x
+
+def Distance(x1 : int , y1 : int , x2 : int , y2 : int):
+    x = sqrt(Carre(x2-x1)+(Carre(y2-y1)))
+    return x
+
 def Lecture_Fichier():
     TSP = open('bayg29.tsp', 'r')
 
