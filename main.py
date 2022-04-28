@@ -40,7 +40,7 @@ def extractionDistances(linecount: int, fic, dimensions: int):
     return distStr
 
 def stringToList(string: str):
-    str_retour = re.split('[ ]', string)
+    str_retour = re.split('[ \n  ]', string)
     str_retour = list(filter(None, str_retour))
     return str_retour
 
