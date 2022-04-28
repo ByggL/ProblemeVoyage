@@ -1,7 +1,7 @@
 Fonctions à avoir :
- - lire le fichier
+ - lire le fichier :)
  - générer un graphe  (bibliothèques python)
- - vérifier le contenu du fichier (matrice d'adjacence ou pas) (vérifier le EDGE_WEIGHT_TYPE)
+ - vérifier le contenu du fichier (matrice d'adjacence ou pas) (vérifier le EDGE_WEIGHT_TYPE) :)
  - si matrice d'adjacence, la convertir en tableau à deux dimensions (dynamique ?) [inverser triangle dans le tableau]
  - si pas de matrice d'adjacence :
         - calculer distances à partir des coordonnées
@@ -10,3 +10,5 @@ Fonctions à avoir :
  - trouver chemin [...] le plus court
  - faire un affichage propre
  flblblblbl
+
+ la matrice d'adjacence est de n-1 par n-1 (n étant la nombre de sommets)
