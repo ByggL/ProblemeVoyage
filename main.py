@@ -8,6 +8,11 @@ def Distance(x1 : int , y1 : int , x2 : int , y2 : int):
     x = sqrt(Carre(x2-x1)+(Carre(y2-y1)))
     return x
 
+def Affichage(Tab , dimensions: int):
+    for i in range(dimensions-1):
+        for j in range(dimensions-i):
+            print(Tab[i][j])
+
 def Lecture_Fichier():
     TSP = open('bayg29.tsp', 'r')
 
@@ -44,9 +49,13 @@ def stringToList(string: str):
     str_retour = list(filter(None, str_retour))
     return str_retour
 
-#def listToTab(data: list, dimensions: int):
-#    for i in range(dimensions-1):
-#        for j in range(dimensions - i):
+def listToTab(data: list, dimensions: int):
+    X: int = 0
+    for i in range(dimensions-1):
+        for j in range(dimensions - i):
+            Tab[i][j] = int(data[X])
+            X += 1
+    Affichage(Tab,dimensions)
 
 
 Lecture_Fichier()
