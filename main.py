@@ -11,7 +11,8 @@ def Distance(x1 : int , y1 : int , x2 : int , y2 : int):
 def Affichage(Tab , dimensions: int):
     for i in range(dimensions-1):
         for j in range(dimensions-1-i):
-            print(Tab[i][j])
+            print(Tab[i][j], end=' ')
+        print('\n')
 
 def Lecture_Fichier():
     TSP = open('bayg29.tsp', 'r')
@@ -63,6 +64,7 @@ def listToTab(data: list, dimensions: int):
             Tab[i][j] = int(data[X])
             X += 1
     Affichage(Tab,dimensions)
+    print(Tab)
 
 
 Lecture_Fichier()
