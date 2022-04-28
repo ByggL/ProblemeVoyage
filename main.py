@@ -10,9 +10,14 @@ def Distance(x1 : int , y1 : int , x2 : int , y2 : int):
 
 def Affichage(Tab , dimensions: int):
     for i in range(dimensions-1):
+        x = i
         for j in range(dimensions-1-i):
+            while x > 0:
+                print(end='\t')
+                x -= 1
             print(Tab[i][j], end=' ')
         print('\n')
+
 
 def Lecture_Fichier():
     TSP = open('bayg29.tsp', 'r')
