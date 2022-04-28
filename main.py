@@ -25,19 +25,22 @@ def Lecture_Fichier():
     for line in TSP:
         if 'NODE_COORD_SECTION' in line or 'DISPLAY_DATA_SECTION' in line:
             print('Appel extraction coordonnées')
+            coord_extract = extraction(linecount, TSP, Dimension)
+            print(coord_extract)
             break
             # Faire appel à une fonction pour le type de Fichier qui ressemble à att48.tsp
         elif 'EDGE_WEIGHT_SECTION' in line:
             print('Appel extraction distances')
-            data_extract = extractionDistances(linecount, TSP, Dimension)
+            data_extract = extraction(linecount, TSP, Dimension)
             data_extract = stringToList(data_extract)
             print(data_extract)
+            listToTab(data_extract, Dimension)
             break
             # Faire appel à une fonction pour le type de Fichier comme bayg29.tsp
         linecount += 1
     print(Name,Type,Comment,int(Dimension),EDGE_WEIGHT_TYPE)
 
-def extractionDistances(linecount: int, fic, dimensions: int):
+def extraction(linecount: int, fic, dimensions: int):
     contenu = fic.readlines()
     distStr: str = ""
     for i in range(linecount, linecount + dimensions - 1):
@@ -51,6 +54,10 @@ def stringToList(string: str):
 
 def listToTab(data: list, dimensions: int):
     X: int = 0
+    Tab = []
+    for g in range(dimensions - 1):
+        Tab.append([0] * (dimensions-1))
+
     for i in range(dimensions-1):
         for j in range(dimensions - i):
             Tab[i][j] = int(data[X])
