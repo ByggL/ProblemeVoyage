@@ -8,15 +8,8 @@ def Distance(x1 : int , y1 : int , x2 : int , y2 : int):
     x = sqrt(Carre(x2-x1)+(Carre(y2-y1)))
     return x
 
-def Affichage(Tab , dimensions: int):
-    for i in range(dimensions-1):
-        x = i
-        for j in range(dimensions-1-i):
-            while x > 0:
-                print(end='\t')
-                x -= 1
-            print(Tab[i][j], end=' ')
-        print('\n')
+def Affichage(Tab):
+    print('\n'.join(['\t'.join([str(cell) for cell in row])for row in Tab]))
 
 
 def Lecture_Fichier():
@@ -60,15 +53,13 @@ def stringToList(string: str):
 
 def listToTab(data: list, dimensions: int):
     X: int = 0
-    Tab = []
-    for g in range(dimensions - 1):
-        Tab.append([0] * (dimensions-1))
+    Tab = [[0 for i in range(dimensions-1)] for j in range(dimensions-1)]
 
     for i in range(dimensions-1):
-        for j in range(dimensions - 1 - i):
+        for j in range(i, dimensions - 1):
             Tab[i][j] = int(data[X])
             X += 1
-    Affichage(Tab,dimensions)
+    Affichage(Tab)
     print(Tab)
 
 
