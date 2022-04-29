@@ -1,6 +1,6 @@
 NAME : att48
-COMMENT : 48 capitals of the US (Padberg/Rinaldi)
 TYPE : TSP
+COMMENT : 48 capitals of the US (Padberg/Rinaldi)
 DIMENSION : 48
 EDGE_WEIGHT_TYPE : ATT
 NODE_COORD_SECTION

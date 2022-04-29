@@ -11,13 +11,26 @@ def Distance(x1 : int , y1 : int , x2 : int , y2 : int):
 def Affichage(Tab):
     print('\n'.join(['\t'.join([str(cell) for cell in row])for row in Tab]))
 
+def MatriceAdjacente(Data: list , dimension: int):
+    X: int = 0
+    Y: int = 0
+    Tab = [[0 for i in range(dimensions - 1)] for j in range(dimensions - 1)]
+
+    for i in range(1,dimension-1):
+        for j in range(i,dimension-1):
+            Tab[i][j] = Distance(Data[i+X],Data[i+1+X],Data[j+Y],Data[j+1+Y])
+            Y += 3
+        X += 3
+
+
+
 
 def Lecture_Fichier():
     TSP = open('bayg29.tsp', 'r')
 
     Name = TSP.readline().strip().split()[1]
     Type = TSP.readline().strip().split()[1]
-    Comment = TSP.readline().rstrip().split()[1]   #Trouver comment extraire tout le rest ede la ligne ...
+    Comment = TSP.readline().rstrip().split()[1]   #Trouver comment extraire tout le reste de la ligne ...
     Dimension = int(TSP.readline().strip().split()[1])
     EDGE_WEIGHT_TYPE = TSP.readline().strip().split()[1]
     linecount: int = -2
@@ -26,6 +39,8 @@ def Lecture_Fichier():
             print('Appel extraction coordonnées')
             coord_extract = extraction(linecount, TSP, Dimension)
             print(coord_extract)
+            stringToList(coord_extract)
+            MatriceAdjacente(coord_extract, Dimension)
             break
             # Faire appel à une fonction pour le type de Fichier qui ressemble à att48.tsp
         elif 'EDGE_WEIGHT_SECTION' in line:
