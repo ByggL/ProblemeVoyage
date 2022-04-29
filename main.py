@@ -24,7 +24,6 @@ def MatriceAdjacente(Data: list , dimension: int):
 
 
 
-
 def Lecture_Fichier():
     TSP = open('bayg29.tsp', 'r')
 
@@ -48,10 +47,11 @@ def Lecture_Fichier():
             data_extract = extraction(linecount, TSP, Dimension)
             data_extract = stringToList(data_extract)
             print(data_extract)
-            listToTab(data_extract, Dimension)
+            Tableau = listToTab(data_extract, Dimension)
             break
             # Faire appel à une fonction pour le type de Fichier comme bayg29.tsp
         linecount += 1
+    print(plusCourtLigne(Tableau, 0))
     print(Name,Type,Comment,int(Dimension),EDGE_WEIGHT_TYPE)
 
 def extraction(linecount: int, fic, dimensions: int):
@@ -75,7 +75,18 @@ def listToTab(data: list, dimensions: int):
             Tab[i][j] = int(data[X])
             X += 1
     Affichage(Tab)
-    print(Tab)
+    return Tab
+
+def plusCourtLigne(Tab, ligne):
+    lenght = len(Tab[ligne])
+    plusPetit: int = Tab[ligne][0]
+    for i in range(1, lenght-1):
+        if Tab[ligne][i] < plusPetit:
+            plusPetit = Tab[ligne][i]
+    coordretour: tuple = (ligne+1, i+2) #faire en sorte que le code se reproduise pour la ligne i+2
+    return coordretour
+
+
 
 
 Lecture_Fichier()
