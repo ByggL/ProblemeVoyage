@@ -9,6 +9,12 @@ def Distance(x1 : int , y1 : int , x2 : int , y2 : int):
     return x
 
 def Affichage(Tab):
+    for i in range(1,30):
+        if i < 10:
+            print(i, end="   ")
+        else:
+            print(i, end="  ")
+    print('(-1 pour les indexs du tableau) \n')
     print('\n'.join(['\t'.join([str(cell) for cell in row])for row in Tab]))
 
 def MatriceAdjacente(Data: list , dimension: int):
@@ -69,28 +75,35 @@ def stringToList(string: str):
 
 def listToTab(data: list, dimensions: int):
     X: int = 0
-    Tab = [[0 for i in range(dimensions-1)] for j in range(dimensions-1)]
+    Tab = [[0 for i in range(dimensions)] for j in range(dimensions)]
 
-    for i in range(dimensions-1):
-        for j in range(i, dimensions - 1):
-            Tab[i][j] = int(data[X])
+    for i in range(1,dimensions):
+        for j in range(i, dimensions):
+            Tab[i-1][j] = int(data[X])
+            Tab[j][i-1] = int(data[X])
             X += 1
     Affichage(Tab)
     return Tab
 
-def plusCourtLigne(Tab, ligne, dimensions):
-    plusPetit: int = Tab[ligne][0]
-    for i in range(1, dimensions-1):
-        if Tab[ligne][i] < plusPetit and Tab[ligne][i] != 0:
-            plusPetit = Tab[ligne][i]
-    coordretour: list = [ligne+1, i+2] #faire en sorte que le code se reproduise pour la ligne i+2
+def plusCourtDist(Tab, numVille, dimensions,passedlist):
+    plusPetit: int = 1000
+    for i in range(numVille-1, dimensions-1):
+        if Tab[numVille][i] < plusPetit and Tab[numVille][i] != 0:
+            plusPetit = Tab[numVille][i]
+    coordretour: list = [numVille, i] #faire en sorte que le code se reproduise pour la ligne i+2
     return coordretour
 
 def creaChemin(Tab, dimensions):
     suiteCoord = []
-    suiteCoord.append(plusCourtLigne(Tab, 0, dimensions))
+    passedlist = []
+    pluscourt = plusCourtDist(Tab,1,dimensions, passedlist)
+    suiteCoord.append(pluscourt)
+    passedlist.append(pluscourt[1] + 1)
+    print(suiteCoord, passedlist)
     for g in range(1, dimensions - 1):
-        suiteCoord.append(plusCourtLigne(Tab, suiteCoord[g - 1][1] - 2, dimensions))
+        pluscourtloop = plusCourtDist(Tab, suiteCoord[g][1] + 1, dimensions, passedlist)
+        suiteCoord.append(pluscourtloop)
+        passedlist.append(pluscourtloop[1])
     return suiteCoord
 
 
