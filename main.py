@@ -59,7 +59,7 @@ def Lecture_Fichier():
         linecount += 1
     chemin = creaChemin(Tableau, Dimension)
     print(Name,Type,Comment,int(Dimension),EDGE_WEIGHT_TYPE)
-    print(chemin)
+    affchemin(chemin, Dimension)
 
 def extraction(linecount: int, fic, dimensions: int):
     contenu = fic.readlines()
@@ -87,24 +87,30 @@ def listToTab(data: list, dimensions: int):
 
 def plusCourtDist(Tab, numVille, dimensions,passedlist):
     plusPetit: int = 1000
-    for i in range(numVille-1, dimensions-1):
-        if Tab[numVille][i] < plusPetit and Tab[numVille][i] != 0:
-            plusPetit = Tab[numVille][i]
-    coordretour: list = [numVille, i] #faire en sorte que le code se reproduise pour la ligne i+2
+    indexPlusPetit = 0
+    for j in range(dimensions):
+        if Tab[numVille][j] < plusPetit and Tab[numVille][j] != 0:
+            plusPetit = Tab[numVille][j]
+            indexPlusPetit = j;
+    coordretour: list = [numVille, indexPlusPetit] #faire en sorte que le code se reproduise pour la ligne i+2
     return coordretour
 
 def creaChemin(Tab, dimensions):
     suiteCoord = []
-    passedlist = []
-    pluscourt = plusCourtDist(Tab,1,dimensions, passedlist)
+    passedlist = [1]
+    pluscourt = plusCourtDist(Tab,0,dimensions, passedlist)
     suiteCoord.append(pluscourt)
     passedlist.append(pluscourt[1] + 1)
     print(suiteCoord, passedlist)
-    for g in range(1, dimensions - 1):
-        pluscourtloop = plusCourtDist(Tab, suiteCoord[g][1] + 1, dimensions, passedlist)
+    for g in range(dimensions - 1):
+        pluscourtloop = plusCourtDist(Tab, suiteCoord[g][1], dimensions, passedlist)
         suiteCoord.append(pluscourtloop)
         passedlist.append(pluscourtloop[1])
     return suiteCoord
 
+def affchemin(chemin, dimensions):
+    print("-1 pour les indices")
+    for i in range(dimensions):
+        print(chemin[i][0] + 1, " --> ", chemin[i][1] + 1)
 
 Lecture_Fichier()
