@@ -1,3 +1,5 @@
+from typing import Any
+
 from math import *
 import re
 
@@ -20,23 +22,27 @@ def Affichage(Tab):
 def MatriceAdjacente(Data: list , dimension: int):
     X: int = 0
     Y: int = 0
-    Tab = [[0 for i in range(dimensions - 1)] for j in range(dimensions - 1)]
+    list_dist = []
 
     for i in range(1,dimension-1):
         for j in range(i,dimension-1):
-            Tab[i][j] = Distance(Data[i+X],Data[i+1+X],Data[j+Y],Data[j+1+Y])
+            list_dist.append(Distance(Data[i+X],Data[i+1+X],Data[j+Y],Data[j+1+Y]))
             Y += 3
         X += 3
+    print(list_dist)
 
 
 
 def Lecture_Fichier():
-    TSP = open('bayg29.tsp', 'r')
+    TSP = open('att48.tsp', 'r')
 
     Name = TSP.readline().strip().split()[1]
     Type = TSP.readline().strip().split()[1]
-    Comment = TSP.readline().rstrip().split()[1]   #Trouver comment extraire tout le reste de la ligne ...
-    Dimension = int(TSP.readline().strip().split()[1])
+    Comment = TSP.readline().strip().split()[1]   #Trouver comment extraire tout le reste de la ligne ...
+    Dimension = TSP.readline()
+    Dimension = Dimension.replace(' :',':')
+    print(Dimension)
+    Dimension = int(Dimension.strip().split()[1])
     EDGE_WEIGHT_TYPE = TSP.readline().strip().split()[1]
     linecount: int = -2
     for line in TSP:
