@@ -51,6 +51,14 @@ def Lecture_Fichier():
     linecount: int = -2
 
     for line in TSP:  # parcours du fichier
+        if 'EDGE_WEIGHT_SECTION' in line:  # si matrice d'adjacence trouvée d'abord
+            print('Appel extraction distances')
+            data_extract = extraction(linecount, TSP, Dimension)  # extraction de la matrice sous forme de string
+            data_extract = stringToList(data_extract)  # transformation de la matrice string en liste
+            print(data_extract)
+            Tableau = listToTab(data_extract, Dimension)  # transformation de la matrice en tableau pour traitement
+            # Faire appel à une fonction pour le type de Fichier comme bayg29.tsp
+
         if 'NODE_COORD_SECTION' in line or 'DISPLAY_DATA_SECTION' in line:  # si des coordonnées trouvées d'abord
             print('Appel extraction coordonnées')
             coord_extract = extraction(linecount, TSP, Dimension)
@@ -59,15 +67,6 @@ def Lecture_Fichier():
             MatriceAdjacente(coord_extract, Dimension)
             break
             # Faire appel à une fonction pour le type de Fichier qui ressemble à att48.tsp
-
-        elif 'EDGE_WEIGHT_SECTION' in line:  # si matrice d'adjacence trouvée d'abord
-            print('Appel extraction distances')
-            data_extract = extraction(linecount, TSP, Dimension)  # extraction de la matrice sous forme de string
-            data_extract = stringToList(data_extract)  # transformation de la matrice string en liste
-            print(data_extract)
-            Tableau = listToTab(data_extract, Dimension)  # transformation de la matrice en tableau pour traitement
-            break
-            # Faire appel à une fonction pour le type de Fichier comme bayg29.tsp
 
         linecount += 1
 
@@ -87,17 +86,13 @@ def extraction(linecount: int, fic, dimensions: int):
     return distStr
 
 def stringToList(string: str):
-    # transforme une string en liste
-
-def stringToList(string: str):
     str_retour = re.split('[ \n  ]', string)
     str_retour = list(filter(None, str_retour))
     return str_retour
 
-def listToTab(data: list, dimensions: int):
-    # transforme une liste en tableau d'adjacence (avec dimensions de la matrice)
 
 def listToTab(data: list, dimensions: int):
+    # transforme une liste en tableau d'adjacence (avec dimensions de la matrice)
     X: int = 0
     Tab = [[0 for i in range(dimensions)] for j in range(dimensions)]
 
@@ -113,8 +108,6 @@ def listToTab(data: list, dimensions: int):
 def plusCourtDist(Tab, numVille, dimensions,passedlist):
     # trouve la ville la plus proche d'une ville donnée et renvoie son index sur le tableau
     # en parcourant la ligne du tableau correspondant à la ville donnée
-
-def plusCourtDist(Tab, numVille, dimensions,passedlist):
     plusPetit: int = 1000
     indexPlusPetit = 0
 
@@ -128,7 +121,7 @@ def plusCourtDist(Tab, numVille, dimensions,passedlist):
 
 
 def creaChemin(Tab, dimensions):
-    # crée une liste des numéros de villes selon le chemin le plus court passant une seule fois par chaque ville
+     # crée une liste des numéros de villes selon le chemin le plus court passant une seule fois par chaque ville
     suiteCoord = []  # liste à retourner
     passedlist = [1]  # liste de vérification des villes déjà passées
     pluscourt = plusCourtDist(Tab,0,dimensions, passedlist)     #
@@ -145,8 +138,6 @@ def creaChemin(Tab, dimensions):
     print(passedlist)
     return suiteCoord
 
-def affchemin(chemin, dimensions):
-    # affichage propre du chemin trouvé
 
 def affchemin(chemin, dimensions):
     print("-1 pour les indices")
