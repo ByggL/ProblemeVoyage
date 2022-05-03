@@ -48,27 +48,27 @@ def Lecture_Fichier():
     print(Dimension)
     Dimension = int(Dimension.strip().split()[1])
     EDGE_WEIGHT_TYPE = TSP.readline().strip().split()[1]
-    linecount: int = -2
+    linecount: int = -3
 
-    for line in TSP:  # parcours du fichier
+    for num, line in enumerate(TSP, 1):  # parcours du fichier
+        linecount += 1
         if 'EDGE_WEIGHT_SECTION' in line:  # si matrice d'adjacence trouvée d'abord
             print('Appel extraction distances')
             data_extract = extraction(linecount, TSP, Dimension)  # extraction de la matrice sous forme de string
             data_extract = stringToList(data_extract)  # transformation de la matrice string en liste
-            print(data_extract)
             Tableau = listToTab(data_extract, Dimension)  # transformation de la matrice en tableau pour traitement
             # Faire appel à une fonction pour le type de Fichier comme bayg29.tsp
 
         if 'NODE_COORD_SECTION' in line or 'DISPLAY_DATA_SECTION' in line:  # si des coordonnées trouvées d'abord
             print('Appel extraction coordonnées')
-            coord_extract = extraction(linecount, TSP, Dimension)
+            coord_extract = extraction(num, TSP, Dimension)
             print(coord_extract)
             stringToList(coord_extract)
             MatriceAdjacente(coord_extract, Dimension)
             break
             # Faire appel à une fonction pour le type de Fichier qui ressemble à att48.tsp
 
-        linecount += 1
+
 
     chemin = creaChemin(Tableau, Dimension)  # création d'un chemin
     print(Name,Type,Comment,int(Dimension),EDGE_WEIGHT_TYPE)
