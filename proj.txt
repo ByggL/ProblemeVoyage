@@ -11,4 +11,6 @@ Fonctions à avoir :
  - faire un affichage propre
  flblblblbl
 
+ - REPARER LE LINECOUNT
+
  la matrice d'adjacence est de n-1 par n-1 (n étant la nombre de sommets)
