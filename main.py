@@ -29,7 +29,6 @@ def MatriceAdjacente(Data: list, dimension: int):
     for i in range(0,dimension*2,2):
         for j in range(i+2,dimension*2,2):
             list_dist.append(round(Distance(int(Data[i]),int(Data[i+1]),int(Data[j]),int(Data[j+1]))))
-            print(Data[j],Data[j+1])
     print(list_dist)
 
 def extraction2(fic, dimensions: int):
@@ -43,7 +42,7 @@ def extraction2(fic, dimensions: int):
     return distStr
 
 def Lecture_Fichier():
-    TSP = open('att48.tsp', 'r')  # ouverture du fichier
+    TSP = open('bayg29.tsp', 'r')  # ouverture du fichier
     Name = TSP.readline().strip().split()[1]
     Type = TSP.readline().strip().split()[1]
     Comment = TSP.readline().strip().split()[1]   #Trouver comment extraire tout le reste de la ligne ...
@@ -59,12 +58,10 @@ def Lecture_Fichier():
         print("test1")
         if line.strip('\n') == 'EDGE_WEIGHT_SECTION':  # si matrice d'adjacence trouvée d'abord
             print('Appel extraction distances')
-            last_pos = TSP.tell()
-            data_extract = extraction(linecount, TSP, Dimension)  # extraction de la matrice sous forme de string
+            data_extract = extraction2(TSP, Dimension)  # extraction de la matrice sous forme de string
             data_extract = stringToList(data_extract)  # transformation de la matrice string en liste
             Tableau = listToTab(data_extract, Dimension)  # transformation de la matrice en tableau pour traitement
             # Faire appel à une fonction pour le type de Fichier comme bayg29.tsp
-            TSP.seek(last_pos)
         print("test2", linecount, line)
         if line.strip('\n') == 'NODE_COORD_SECTION' or line == 'DISPLAY_DATA_SECTION':  # si des coordonnées trouvées d'abord
             print('Appel extraction coordonnées')
@@ -73,9 +70,8 @@ def Lecture_Fichier():
             coord_extract = coord_extract.split()
             for i in range(0,Dimension*2,2):
                 del coord_extract[i]
-            print(coord_extract)
-            MatriceAdjacente(coord_extract, Dimension)
-            listToTab(coord_extract,Dimension)
+            Data = MatriceAdjacente(coord_extract, Dimension)
+            Tableau = listToTab(Data ,Dimension)
             break
             # Faire appel à une fonction pour le type de Fichier qui ressemble à att48.tsp
         print("test3")
