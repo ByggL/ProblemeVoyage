@@ -2,7 +2,7 @@ from typing import Any
 
 from math import *
 import re
-import matplotlib.pyplot as plt
+# import matplotlib.pyplot as plt
 
 def Carre(x: int):
     return x * x
@@ -24,20 +24,26 @@ def Affichage(Tab):
 
 
 def MatriceAdjacente(Data: list, dimension: int):
-    X: int = 0
-    Y: int = 0
     list_dist = []
-
-    for i in range(1,dimension-1):
-        for j in range(i,dimension-1):
-            list_dist.append(Distance(Data[i+X],Data[i+1+X],Data[j+Y],Data[j+1+Y]))
-            Y += 3
-        X += 3
+    Y: int
+    for i in range(0,dimension*2,2):
+        for j in range(i+2,dimension*2,2):
+            list_dist.append(round(Distance(int(Data[i]),int(Data[i+1]),int(Data[j]),int(Data[j+1]))))
+            print(Data[j],Data[j+1])
     print(list_dist)
 
+def extraction2(fic, dimensions: int):
+    # prend la matrice d'adjacence du fichier et la renvoit sous forme de string séparée
+    contenu = fic.readlines()
+    distStr: str = ""
+
+    for i in range(dimensions):
+        distStr += contenu[i]
+
+    return distStr
 
 def Lecture_Fichier():
-    TSP = open('bayg29.tsp', 'r')  # ouverture du fichier
+    TSP = open('att48.tsp', 'r')  # ouverture du fichier
     Name = TSP.readline().strip().split()[1]
     Type = TSP.readline().strip().split()[1]
     Comment = TSP.readline().strip().split()[1]   #Trouver comment extraire tout le reste de la ligne ...
@@ -62,10 +68,15 @@ def Lecture_Fichier():
         print("test2", linecount, line)
         if line.strip('\n') == 'NODE_COORD_SECTION' or line == 'DISPLAY_DATA_SECTION':  # si des coordonnées trouvées d'abord
             print('Appel extraction coordonnées')
-            coord_extract = extraction(linecount, TSP, Dimension)
+            coord_extract = extraction2(TSP, Dimension)
             print(coord_extract)
-            stringToList(coord_extract)
+            coord_extract = coord_extract.split()
+            for i in range(0,Dimension*2,2):
+                del coord_extract[i]
+            print(coord_extract)
             MatriceAdjacente(coord_extract, Dimension)
+            listToTab(coord_extract,Dimension)
+            break
             # Faire appel à une fonction pour le type de Fichier qui ressemble à att48.tsp
         print("test3")
 
