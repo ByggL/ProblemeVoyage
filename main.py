@@ -89,7 +89,7 @@ def plusCourtDist(Tab, numVille, dimensions,passedlist):
     plusPetit: int = 1000
     indexPlusPetit = 0
     for j in range(dimensions):
-        if Tab[numVille][j] < plusPetit and Tab[numVille][j] != 0:
+        if Tab[numVille][j] < plusPetit and Tab[numVille][j] != 0 and j not in passedlist:
             plusPetit = Tab[numVille][j]
             indexPlusPetit = j;
     coordretour: list = [numVille, indexPlusPetit] #faire en sorte que le code se reproduise pour la ligne i+2
