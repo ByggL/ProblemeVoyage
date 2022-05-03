@@ -36,10 +36,8 @@ def MatriceAdjacente(Data: list, dimension: int):
     print(list_dist)
 
 
-
 def Lecture_Fichier():
     TSP = open('bayg29.tsp', 'r')  # ouverture du fichier
-
     Name = TSP.readline().strip().split()[1]
     Type = TSP.readline().strip().split()[1]
     Comment = TSP.readline().strip().split()[1]   #Trouver comment extraire tout le reste de la ligne ...
@@ -50,29 +48,31 @@ def Lecture_Fichier():
     EDGE_WEIGHT_TYPE = TSP.readline().strip().split()[1]
     linecount: int = -3
 
-    for num, line in enumerate(TSP, 1):  # parcours du fichier
+    for line in TSP:  # parcours du fichier
         linecount += 1
-        if 'EDGE_WEIGHT_SECTION' in line:  # si matrice d'adjacence trouvée d'abord
+        print("test1")
+        if line.strip('\n') == 'EDGE_WEIGHT_SECTION':  # si matrice d'adjacence trouvée d'abord
             print('Appel extraction distances')
+            last_pos = TSP.tell()
             data_extract = extraction(linecount, TSP, Dimension)  # extraction de la matrice sous forme de string
             data_extract = stringToList(data_extract)  # transformation de la matrice string en liste
             Tableau = listToTab(data_extract, Dimension)  # transformation de la matrice en tableau pour traitement
             # Faire appel à une fonction pour le type de Fichier comme bayg29.tsp
-
-        if 'NODE_COORD_SECTION' in line or 'DISPLAY_DATA_SECTION' in line:  # si des coordonnées trouvées d'abord
+            TSP.seek(last_pos)
+        print("test2", linecount, line)
+        if line.strip('\n') == 'NODE_COORD_SECTION' or line == 'DISPLAY_DATA_SECTION':  # si des coordonnées trouvées d'abord
             print('Appel extraction coordonnées')
-            coord_extract = extraction(num, TSP, Dimension)
+            coord_extract = extraction(linecount, TSP, Dimension)
             print(coord_extract)
             stringToList(coord_extract)
             MatriceAdjacente(coord_extract, Dimension)
-            break
             # Faire appel à une fonction pour le type de Fichier qui ressemble à att48.tsp
-
-
+        print("test3")
 
     chemin = creaChemin(Tableau, Dimension)  # création d'un chemin
     print(Name,Type,Comment,int(Dimension),EDGE_WEIGHT_TYPE)
     affchemin(chemin, Dimension)  # affichage du chemin trouvé
+    TSP.close()
 
 
 def extraction(linecount: int, fic, dimensions: int):
