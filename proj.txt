@@ -5,9 +5,9 @@ Fonctions à avoir :
  - si matrice d'adjacence, la convertir en tableau à deux dimensions (dynamique ?) [inverser triangle dans le tableau] :)
  - si pas de matrice d'adjacence :
         - calculer distances à partir des coordonnées
-        - mettre ces distances sur tableau 2 dimensions (dynamique ?)
- - trouver chemin qui passe une et une seule fois par chaque noeud
- - trouver chemin [...] le plus court
+        - mettre ces distances sur tableau 2 dimensions (dynamique ?) :)
+ - trouver chemin qui passe une et une seule fois par chaque noeud :)
+ - trouver chemin [...] le plus court :)
  - faire un affichage propre
  flblblblbl
 
