@@ -45,8 +45,6 @@ def extraction2(nomfic, dimensions: int, depart: int):
 
     return distStr
 
-def Dist_tour():
-
 
 def Lecture_Fichier():
     nomfic = 'bayg29.tsp'
@@ -92,7 +90,7 @@ def Lecture_Fichier():
             break
             # Faire appel à une fonction pour le type de Fichier qui ressemble à att48.tsp
 
-    chemin = creaChemin(Tableau, Dimension)  # création d'un chemin
+    chemin, liste_passage = creaChemin(Tableau, Dimension)  # création d'un chemin
     print(Name,Type,Comment,int(Dimension),EDGE_WEIGHT_TYPE)
     affchemin(chemin, Dimension)  # affichage du chemin trouvé
     TSP.close()
@@ -145,7 +143,7 @@ def creaChemin(Tab, dimensions):
         passedlist.append(pluscourtloop[1] + 1)
 
     print(passedlist)
-    return suiteCoord
+    return suiteCoord, passedlist
 
 
 def affchemin(chemin, dimensions):
