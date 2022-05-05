@@ -45,6 +45,12 @@ def extraction2(nomfic, dimensions: int, depart: int):
 
     return distStr
 
+def Dist_tour(data: list, Tab, dimension: int):
+    Dist_total: int = 0
+    for i in range(dimension-1):
+        Dist_total += Tab[data[i]][data[i+1]]
+    print(Dist_total)
+    return Dist_total
 
 def Lecture_Fichier():
     nomfic = 'bayg29.tsp'
@@ -85,14 +91,13 @@ def Lecture_Fichier():
             for i in range(0,Dimension*2,2):
                 del coord_extract[i]
             Data = MatriceAdjacente(coord_extract, Dimension)
-            print(Data)
             Tableau = listToTab(Data, Dimension)
-            break
             # Faire appel à une fonction pour le type de Fichier qui ressemble à att48.tsp
 
     chemin, liste_passage = creaChemin(Tableau, Dimension)  # création d'un chemin
     print(Name,Type,Comment,int(Dimension),EDGE_WEIGHT_TYPE)
     affchemin(chemin, Dimension)  # affichage du chemin trouvé
+    Dist_tour(liste_passage,Tableau,Dimension)
     TSP.close()
 
 
