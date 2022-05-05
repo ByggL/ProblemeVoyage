@@ -60,13 +60,20 @@ def Lecture_Fichier():
         linecount += 1
         if line.strip('\n') == 'EDGE_WEIGHT_SECTION':  # si matrice d'adjacence trouvée d'abord
             print('Appel extraction distances')
-            data_extract = extraction2(nomfic, Dimension, 8)  # extraction de la matrice sous forme de string
-            data_extract = stringToList(data_extract)  # transformation de la matrice string en liste
+            data_extract = stringToList(extraction2(nomfic, Dimension, 8))  # extraction de la matrice sous forme de string puis en liste
             Tableau = listToTab(data_extract, Dimension)  # transformation de la matrice en tableau pour traitement
             # Faire appel à une fonction pour le type de Fichier comme bayg29.tsp
 
-            coord_extract = extraction2(nomfic, Dimension, 8+Dimension)
-            print('\n', coord_extract)
+            coord_extract = stringToList(extraction2(nomfic, Dimension, 8+Dimension))
+            for i in range(Dimension):
+                coord_extract[i*3] = ""
+            coord_extract = list(filter(None, coord_extract))
+
+            x = [coord_extract[i] for i in range(0, len(coord_extract), 2)]
+            y = [coord_extract[i] for i in range(1, len(coord_extract), 2)]
+            print(x, '\n', y)
+            plt.plot(x, y, "o")
+            plt.show()
 
         if line.strip('\n') == 'NODE_COORD_SECTION' or line == 'DISPLAY_DATA_SECTION':  # si des coordonnées trouvées d'abord
             print('Appel extraction coordonnées')
