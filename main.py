@@ -44,7 +44,7 @@ def extraction2(nomfic, dimensions: int, depart: int):
     return distStr
 
 def Lecture_Fichier():
-    nomfic = 'att48.tsp'
+    nomfic = 'bayg29.tsp'
     TSP = open(nomfic, 'r')  # ouverture du fichier
     Name = TSP.readline().strip().split()[1]
     Type = TSP.readline().strip().split()[1]
@@ -66,10 +66,12 @@ def Lecture_Fichier():
                 coord_extract[i*3] = ""
             coord_extract = list(filter(None, coord_extract))
 
-            x = [coord_extract[i] for i in range(0, len(coord_extract), 2)]
-            y = [coord_extract[i] for i in range(1, len(coord_extract), 2)]
+            x = [float(coord_extract[i]) for i in range(0, len(coord_extract), 2)]
+            y = [float(coord_extract[i]) for i in range(1, len(coord_extract), 2)]
             print(x, '\n', y)
+
             plt.plot(x, y, "o")
+
             plt.show()
 
         if line.strip('\n') == 'NODE_COORD_SECTION' or line == 'DISPLAY_DATA_SECTION':  # si des coordonnées trouvées d'abord
