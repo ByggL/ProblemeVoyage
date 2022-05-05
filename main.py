@@ -44,20 +44,17 @@ def extraction2(nomfic, dimensions: int, depart: int):
     return distStr
 
 def Lecture_Fichier():
-    nomfic = 'bayg29.tsp'
+    nomfic = 'att48.tsp'
     TSP = open(nomfic, 'r')  # ouverture du fichier
     Name = TSP.readline().strip().split()[1]
     Type = TSP.readline().strip().split()[1]
     Comment = TSP.readline().strip().split()[1]   #Trouver comment extraire tout le reste de la ligne ...
     Dimension = TSP.readline()
     Dimension = Dimension.replace(' :',':')
-    print(Dimension)
     Dimension = int(Dimension.strip().split()[1])
     EDGE_WEIGHT_TYPE = TSP.readline().strip().split()[1]
-    linecount: int = -3
 
     for line in TSP:  # parcours du fichier
-        linecount += 1
         if line.strip('\n') == 'EDGE_WEIGHT_SECTION':  # si matrice d'adjacence trouvée d'abord
             print('Appel extraction distances')
             data_extract = stringToList(extraction2(nomfic, Dimension, 8))  # extraction de la matrice sous forme de string puis en liste
@@ -77,13 +74,13 @@ def Lecture_Fichier():
 
         if line.strip('\n') == 'NODE_COORD_SECTION' or line == 'DISPLAY_DATA_SECTION':  # si des coordonnées trouvées d'abord
             print('Appel extraction coordonnées')
-            coord_extract = extraction2(TSP, Dimension, 6)
+            coord_extract = extraction2(nomfic, Dimension, 6)
             print(coord_extract)
             coord_extract = coord_extract.split()
             for i in range(0,Dimension*2,2):
                 del coord_extract[i]
             Data = MatriceAdjacente(coord_extract, Dimension)
-            Tableau = listToTab(Data ,Dimension)
+            Tableau = listToTab(Data, Dimension)
             break
             # Faire appel à une fonction pour le type de Fichier qui ressemble à att48.tsp
 
