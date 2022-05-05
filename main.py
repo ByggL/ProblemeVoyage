@@ -29,8 +29,10 @@ def MatriceAdjacente(Data: list, dimension: int):
     for i in range(0,dimension*2,2):
         for j in range(i+2,dimension*2,2):
             list_dist.append(round(Distance(int(Data[i]),int(Data[i+1]),int(Data[j]),int(Data[j+1]))))
+        list_dist[i] = str(list_dist[i])
 
     print(list_dist)
+    return list_dist
 
 def extraction2(nomfic, dimensions: int, depart: int):
     # prend la matrice d'adjacence du fichier et la renvoit sous forme de string séparée
@@ -42,6 +44,9 @@ def extraction2(nomfic, dimensions: int, depart: int):
         distStr += contenu[i]
 
     return distStr
+
+def Dist_tour():
+
 
 def Lecture_Fichier():
     nomfic = 'bayg29.tsp'
@@ -103,13 +108,11 @@ def listToTab(data: list, dimensions: int):
     # transforme une liste en tableau d'adjacence (avec dimensions de la matrice)
     X: int = 0
     Tab = [[0 for i in range(dimensions)] for j in range(dimensions)]
-
     for i in range(1,dimensions):
         for j in range(i, dimensions):
             Tab[i-1][j] = int(data[X])
             Tab[j][i-1] = int(data[X])
             X += 1
-
     Affichage(Tab)
     return Tab
 
