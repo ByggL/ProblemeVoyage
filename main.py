@@ -77,11 +77,10 @@ def Lecture_Fichier():
 
             x = [float(coord_extract[i]) for i in range(0, len(coord_extract), 2)]
             y = [float(coord_extract[i]) for i in range(1, len(coord_extract), 2)]
+
             print(x, '\n', y)
 
-            plt.plot(x, y, "o")
 
-            plt.show()
 
         if line.strip('\n') == 'NODE_COORD_SECTION' or line == 'DISPLAY_DATA_SECTION':  # si des coordonnées trouvées d'abord
             print('Appel extraction coordonnées')
@@ -98,6 +97,13 @@ def Lecture_Fichier():
     print(Name,Type,Comment,int(Dimension),EDGE_WEIGHT_TYPE)
     affchemin(chemin, Dimension)  # affichage du chemin trouvé
     Dist_tour(liste_passage,Tableau,Dimension)
+
+    xo = [x[o] for o in liste_passage + [liste_passage[0]]]
+    yo = [y[o] for o in liste_passage + [liste_passage[0]]]
+
+    plt.plot(xo, yo, "o")
+
+    plt.show()
     TSP.close()
 
 
