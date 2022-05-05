@@ -76,10 +76,11 @@ def Lecture_Fichier():
             print('Appel extraction coordonnées')
             coord_extract = extraction2(nomfic, Dimension, 6)
             print(coord_extract)
-            coord_extract = coord_extract.split()
+            coord_extract = stringToList(coord_extract)
             for i in range(0,Dimension*2,2):
                 del coord_extract[i]
             Data = MatriceAdjacente(coord_extract, Dimension)
+            print(Data)
             Tableau = listToTab(Data, Dimension)
             break
             # Faire appel à une fonction pour le type de Fichier qui ressemble à att48.tsp
