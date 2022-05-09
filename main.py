@@ -45,12 +45,17 @@ def extraction2(nomfic, dimensions: int, depart: int):
 
     return distStr
 
-def Dist_tour(data: list, Tab, dimension: int):
-    Dist_total: int = 0
-    for i in range(dimension-1):
-        Dist_total += Tab[data[i]][data[i+1]]
-    print(Dist_total)
-    return Dist_total
+
+def longueurTour(x,y, ordre):  # x et y les listes de coordonnées, ordre la liste des passages
+    i = ordre[-1]
+    x0, y0 = x[i], y[i]
+    d = 0
+    for o in ordre:
+        x1, y1 = x[o-1], y[o-1]
+        d += (x0-x1)**2 + (y0-y1)**2
+        x0, y0 = x1, y1
+    return d
+
 
 def Lecture_Fichier():
     nomfic = 'bayg29.tsp'
@@ -81,7 +86,6 @@ def Lecture_Fichier():
             print(x, '\n', y)
 
 
-
         if line.strip('\n') == 'NODE_COORD_SECTION' or line == 'DISPLAY_DATA_SECTION':  # si des coordonnées trouvées d'abord
             print('Appel extraction coordonnées')
             coord_extract = extraction2(nomfic, Dimension, 6)
@@ -96,12 +100,12 @@ def Lecture_Fichier():
     chemin, liste_passage = creaChemin(Tableau, Dimension)  # création d'un chemin
     print(Name,Type,Comment,int(Dimension),EDGE_WEIGHT_TYPE)
     affchemin(chemin, Dimension)  # affichage du chemin trouvé
-    Dist_tour(liste_passage,Tableau,Dimension)
+    print(longueurTour(x, y, liste_passage))
 
-    xo = [x[o] for o in liste_passage + [liste_passage[0]]]
-    yo = [y[o] for o in liste_passage + [liste_passage[0]]]
+    xo = [x[o-1] for o in liste_passage]
+    yo = [y[o-1] for o in liste_passage]
 
-    plt.plot(xo, yo, "o")
+    plt.plot(xo, yo, "o-")
 
     plt.show()
     TSP.close()
