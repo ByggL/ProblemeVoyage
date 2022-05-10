@@ -56,9 +56,27 @@ def longueurTour(x,y, ordre):  # x et y les listes de coordonnées, ordre la lis
         x0, y0 = x1, y1
     return d
 
+def permutation(x,y,ordre):
+    d = longueurTour(x,y,ordre)
+    d0 = d+1
+    it = 1
+    while d < d0 :
+        it +=1
+        print("itération",it,"distance=",d)
+        d0 = d
+        for i in range(0,len(ordre)-1):
+            for j in range(i+2,len(ordre)):
+                r = ordre[i:j].copy()
+                r.reverse()
+                ordre2 = ordre[:i] + r + ordre[j:]
+                t = longueurTour(x,y,ordre2)
+                if t < d :
+                    d = t
+                    ordre = ordre2
+    return ordre
 
 def Lecture_Fichier():
-    nomfic = 'bayg29.tsp'
+    nomfic = 'att48.tsp'
     TSP = open(nomfic, 'r')  # ouverture du fichier
     Name = TSP.readline().strip().split()[1]
     Type = TSP.readline().strip().split()[1]
@@ -95,10 +113,14 @@ def Lecture_Fichier():
                 del coord_extract[i]
             Data = MatriceAdjacente(coord_extract, Dimension)
             Tableau = listToTab(Data, Dimension)
+
+            x = [float(coord_extract[i]) for i in range(0, len(coord_extract), 2)]
+            y = [float(coord_extract[i]) for i in range(1, len(coord_extract), 2)]
             # Faire appel à une fonction pour le type de Fichier qui ressemble à att48.tsp
 
     chemin, liste_passage = creaChemin(Tableau, Dimension)  # création d'un chemin
     print(Name,Type,Comment,int(Dimension),EDGE_WEIGHT_TYPE)
+    liste_passage = permutation(x,y,liste_passage)
     affchemin(chemin, Dimension)  # affichage du chemin trouvé
     print(longueurTour(x, y, liste_passage))
 
