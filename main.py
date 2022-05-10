@@ -56,27 +56,29 @@ def longueurTour(x,y, ordre):  # x et y les listes de coordonnées, ordre la lis
         x0, y0 = x1, y1
     return d
 
-def permutation(x,y,ordre):
-    d = longueurTour(x,y,ordre)
-    d0 = d+1
-    it = 1
-    while d < d0 :
-        it +=1
-        print("itération",it,"distance=",d)
-        d0 = d
-        for i in range(0,len(ordre)-1):
-            for j in range(i+2,len(ordre)):
-                r = ordre[i:j].copy()
-                r.reverse()
-                ordre2 = ordre[:i] + r + ordre[j:]
-                t = longueurTour(x,y,ordre2)
-                if t < d :
-                    d = t
-                    ordre = ordre2
-    return ordre
+
+def permutation(x, y, liste_pass: list, dimensions):
+    longueur = longueurTour(x, y, liste_pass)  # assigne la longueur de l'ordre initial à d
+    longueur0 = longueur+1
+    it: int = 1  # comptage des itérations
+    while longueur < longueur0:
+        it += 1
+        print("itération", it, " : distance =", longueur)
+        longueur0 = longueur
+        for i in range(1, dimensions-1):
+            for j in range(i+2, dimensions):
+                segment: list = liste_pass[i:j].copy()  # copie dans 'segment' le segment de l'ordre entre les indices i et j
+                segment.reverse()  # inverse la liste 'segment'
+                liste_pass2 = liste_pass[:i] + segment + liste_pass[j:]  # reconstitue l'ordre en y mettant le segment inversé
+                nouv_longueur = longueurTour(x, y, liste_pass2)  # calcule la longueur de ce nouvel ordre
+
+                if nouv_longueur < longueur:  # si la longueur du nouvel ordre est plus petite que l'ordre original
+                    longueur = nouv_longueur  # la longueur du nouvel ordre remplace la longueur originale
+                    liste_pass = liste_pass2  # le nouvel ordre remplace l'ordre original
+    return liste_pass
 
 def Lecture_Fichier():
-    nomfic = 'att48.tsp'
+    nomfic = 'bayg29.tsp'
     TSP = open(nomfic, 'r')  # ouverture du fichier
     Name = TSP.readline().strip().split()[1]
     Type = TSP.readline().strip().split()[1]
@@ -103,7 +105,6 @@ def Lecture_Fichier():
 
             print(x, '\n', y)
 
-
         if line.strip('\n') == 'NODE_COORD_SECTION' or line == 'DISPLAY_DATA_SECTION':  # si des coordonnées trouvées d'abord
             print('Appel extraction coordonnées')
             coord_extract = extraction2(nomfic, Dimension, 6)
@@ -120,9 +121,11 @@ def Lecture_Fichier():
 
     chemin, liste_passage = creaChemin(Tableau, Dimension)  # création d'un chemin
     print(Name,Type,Comment,int(Dimension),EDGE_WEIGHT_TYPE)
-    liste_passage = permutation(x,y,liste_passage)
-    affchemin(chemin, Dimension)  # affichage du chemin trouvé
+    liste_passage = permutation(x, y, liste_passage, len(liste_passage))
+    affchemin(liste_passage, Dimension)  # affichage du chemin trouvé
     print(longueurTour(x, y, liste_passage))
+    test_objectif: list = [1, 28, 6, 12, 9, 26, 3, 29, 5, 21, 2, 20, 10, 4, 15, 18, 14, 17, 22, 11, 19, 25, 7, 23, 8, 27, 16, 13, 24, 1]
+    print(longueurTour(x, y, test_objectif))
 
     xo = [x[o-1] for o in liste_passage]
     yo = [y[o-1] for o in liste_passage]
@@ -186,7 +189,7 @@ def creaChemin(Tab, dimensions):
 def affchemin(chemin, dimensions):
     print("-1 pour les indices")
 
-    for i in range(dimensions):
-        print(chemin[i][0] + 1, " --> ", chemin[i][1] + 1)
+    for i in range(dimensions-1):
+        print(chemin[i], " --> ", chemin[i+1])
 
 Lecture_Fichier()
