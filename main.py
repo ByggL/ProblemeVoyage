@@ -4,12 +4,8 @@ from math import *
 import re
 import matplotlib.pyplot as plt
 
-def Carre(x: int):
-    return x * x
-
-
 def Distance(x1: int, y1: int, x2: int, y2: int):
-    x = sqrt(Carre(x2-x1)+(Carre(y2-y1)))
+    x = sqrt((x2-x1)**2+((y2-y1)**2))
     return x
 
 
@@ -78,7 +74,7 @@ def permutation(x, y, liste_pass: list, dimensions):
     return liste_pass
 
 def Lecture_Fichier():
-    nomfic = 'bayg29.tsp'
+    nomfic = 'att48.tsp'
     TSP = open(nomfic, 'r')  # ouverture du fichier
     Name = TSP.readline().strip().split()[1]
     Type = TSP.readline().strip().split()[1]
@@ -151,7 +147,6 @@ def listToTab(data: list, dimensions: int):
             Tab[i-1][j] = int(data[X])
             Tab[j][i-1] = int(data[X])
             X += 1
-    Affichage(Tab)
     return Tab
 
 def plusCourtDist(Tab, numVille, dimensions,passedlist):
