@@ -1,8 +1,7 @@
-from typing import Any
-
 from math import *
 import re
 import matplotlib.pyplot as plt
+
 
 def Distance(x1: int, y1: int, x2: int, y2: int):
     x = sqrt((x2-x1)**2+((y2-y1)**2))
@@ -74,7 +73,7 @@ def permutation(x, y, liste_pass: list, dimensions):
     return liste_pass
 
 def Lecture_Fichier():
-    nomfic = 'att48.tsp'
+    nomfic = 'bayg29.tsp'
     TSP = open(nomfic, 'r')  # ouverture du fichier
     Name = TSP.readline().strip().split()[1]
     Type = TSP.readline().strip().split()[1]
@@ -115,9 +114,8 @@ def Lecture_Fichier():
             y = [float(coord_extract[i]) for i in range(1, len(coord_extract), 2)]
             # Faire appel à une fonction pour le type de Fichier qui ressemble à att48.tsp
 
-    chemin, liste_passage = creaChemin(Tableau, Dimension)  # création d'un chemin
+    liste_passage = creaChemin(x, y, Dimension)  # création d'un chemin
     print(Name,Type,Comment,int(Dimension),EDGE_WEIGHT_TYPE)
-    liste_passage = permutation(x, y, liste_passage, len(liste_passage))
     affchemin(liste_passage, Dimension)  # affichage du chemin trouvé
     print(longueurTour(x, y, liste_passage))
     test_objectif: list = [1, 28, 6, 12, 9, 26, 3, 29, 5, 21, 2, 20, 10, 4, 15, 18, 14, 17, 22, 11, 19, 25, 7, 23, 8, 27, 16, 13, 24, 1]
@@ -149,36 +147,20 @@ def listToTab(data: list, dimensions: int):
             X += 1
     return Tab
 
-def plusCourtDist(Tab, numVille, dimensions,passedlist):
-    # trouve la ville la plus proche d'une ville donnée et renvoie son index sur le tableau
-    # en parcourant la ligne du tableau correspondant à la ville donnée
-    plusPetit: int = 1000
-    indexPlusPetit = 0
 
-    for j in range(dimensions):
-        if Tab[numVille][j] < plusPetit and Tab[numVille][j] != 0 and j+1 not in passedlist:  # vérifie si la distance est la plus petite parmi celles
-            plusPetit = Tab[numVille][j]                                                      # vérifiées, si elle n'est pas égale à 0 et si la ville
-            indexPlusPetit = j                                                                # correspondant à la distance n'est pas déjà passée
+def creaChemin(x, y, dimensions):
+    # crée une liste des numéros de villes selon le chemin le plus court passant une seule fois par chaque ville
+    passedlist: list = []
 
-    coordretour: list = [numVille, indexPlusPetit]  # faire en sorte que le code se reproduise pour la ligne i+2
-    return coordretour
+    for i in range(1,dimensions+1):
+        passedlist.append(i)
 
+    passedlist.append(1)
 
-def creaChemin(Tab, dimensions):
-     # crée une liste des numéros de villes selon le chemin le plus court passant une seule fois par chaque ville
-    suiteCoord = []  # liste à retourner
-    passedlist = [1]  # liste de vérification des villes déjà passées
-    pluscourt = plusCourtDist(Tab,0,dimensions, passedlist)     #
-    suiteCoord.append(pluscourt)                                # initialisation du chemin
-    passedlist.append(pluscourt[1] + 1)                         #
-
-    for g in range(dimensions - 1):
-        pluscourtloop = plusCourtDist(Tab, suiteCoord[g][1], dimensions, passedlist)
-        suiteCoord.append(pluscourtloop)
-        passedlist.append(pluscourtloop[1] + 1)
+    passedlist = permutation(x, y, passedlist, len(passedlist))
 
     print(passedlist)
-    return suiteCoord, passedlist
+    return passedlist
 
 
 def affchemin(chemin, dimensions):
