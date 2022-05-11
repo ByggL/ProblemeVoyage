@@ -3,32 +3,6 @@ import re
 import matplotlib.pyplot as plt
 
 
-def Distance(x1: int, y1: int, x2: int, y2: int):
-    x = sqrt((x2-x1)**2+((y2-y1)**2))
-    return x
-
-
-def Affichage(Tab):
-    for i in range(1,30):
-        if i < 10:
-            print(i, end="   ")
-        else:
-            print(i, end="  ")
-    print('(-1 pour les indexs du tableau) \n')
-    print('\n'.join(['\t'.join([str(cell) for cell in row])for row in Tab]))
-
-
-def MatriceAdjacente(Data: list, dimension: int):
-    list_dist = []
-    Y: int
-    for i in range(0,dimension*2,2):
-        for j in range(i+2,dimension*2,2):
-            list_dist.append(round(Distance(int(Data[i]),int(Data[i+1]),int(Data[j]),int(Data[j+1]))))
-        list_dist[i] = str(list_dist[i])
-
-    print(list_dist)
-    return list_dist
-
 def extraction2(nomfic, dimensions: int, depart: int):
     # prend la matrice d'adjacence du fichier et la renvoit sous forme de string séparée
     fic = open(nomfic, 'r')
@@ -40,37 +14,6 @@ def extraction2(nomfic, dimensions: int, depart: int):
 
     return distStr
 
-
-def longueurTour(x,y, ordre):  # x et y les listes de coordonnées, ordre la liste des passages
-    i = ordre[-1]
-    x0, y0 = x[i], y[i]
-    d = 0
-    for o in ordre:
-        x1, y1 = x[o-1], y[o-1]
-        d += (x0-x1)**2 + (y0-y1)**2
-        x0, y0 = x1, y1
-    return d
-
-
-def permutation(x, y, liste_pass: list, dimensions):
-    longueur = longueurTour(x, y, liste_pass)  # assigne la longueur de l'ordre initial à d
-    longueur0 = longueur+1
-    it: int = 1  # comptage des itérations
-    while longueur < longueur0:
-        it += 1
-        print("itération", it, " : distance =", longueur)
-        longueur0 = longueur
-        for i in range(1, dimensions-1):
-            for j in range(i+2, dimensions):
-                segment: list = liste_pass[i:j].copy()  # copie dans 'segment' le segment de l'ordre entre les indices i et j
-                segment.reverse()  # inverse la liste 'segment'
-                liste_pass2 = liste_pass[:i] + segment + liste_pass[j:]  # reconstitue l'ordre en y mettant le segment inversé
-                nouv_longueur = longueurTour(x, y, liste_pass2)  # calcule la longueur de ce nouvel ordre
-
-                if nouv_longueur < longueur:  # si la longueur du nouvel ordre est plus petite que l'ordre original
-                    longueur = nouv_longueur  # la longueur du nouvel ordre remplace la longueur originale
-                    liste_pass = liste_pass2  # le nouvel ordre remplace l'ordre original
-    return liste_pass
 
 def Lecture_Fichier():
     nomfic = 'bayg29.tsp'
@@ -130,6 +73,7 @@ def Lecture_Fichier():
     TSP.close()
 
 
+############################################### création matrice d'adjacence sous forme de tableau #####################
 def stringToList(string: str):
     str_retour = re.split('[ \n  ]', string)
     str_retour = list(filter(None, str_retour))
@@ -148,6 +92,25 @@ def listToTab(data: list, dimensions: int):
     return Tab
 
 
+def Distance(x1: int, y1: int, x2: int, y2: int):
+    x = sqrt((x2-x1)**2+((y2-y1)**2))
+    return x
+
+
+def MatriceAdjacente(Data: list, dimension: int):  # pour créer une matrice seulement à partir de coordonnées
+    list_dist = []
+    Y: int
+    for i in range(0,dimension*2,2):
+        for j in range(i+2,dimension*2,2):
+            list_dist.append(round(Distance(int(Data[i]),int(Data[i+1]),int(Data[j]),int(Data[j+1]))))
+        list_dist[i] = str(list_dist[i])
+
+    print(list_dist)
+    return list_dist
+########################################################################################################################
+
+
+############################################### création du chemin le plus court entre les villes ######################
 def creaChemin(x, y, dimensions):
     # crée une liste des numéros de villes selon le chemin le plus court passant une seule fois par chaque ville
     passedlist: list = []
@@ -163,10 +126,55 @@ def creaChemin(x, y, dimensions):
     return passedlist
 
 
+def longueurTour(x,y, ordre):  # x et y les listes de coordonnées, ordre la liste des passages
+    i = ordre[-1]
+    x0, y0 = x[i], y[i]
+    d = 0
+    for o in ordre:
+        x1, y1 = x[o-1], y[o-1]
+        d += (x0-x1)**2 + (y0-y1)**2
+        x0, y0 = x1, y1
+    return d
+
+
+def permutation(x, y, liste_pass: list, dimensions):
+    longueur = longueurTour(x, y, liste_pass)  # assigne la longueur de l'ordre initial à d
+    longueur0 = longueur+1
+    it: int = 1  # comptage des itérations
+    while longueur < longueur0:
+        it += 1
+        print("itération", it, " : distance =", longueur)
+        longueur0 = longueur
+        for i in range(1, dimensions-1):
+            for j in range(i+2, dimensions):
+                segment: list = liste_pass[i:j].copy()  # copie dans 'segment' le segment de l'ordre entre les indices i et j
+                segment.reverse()  # inverse la liste 'segment'
+                liste_pass2 = liste_pass[:i] + segment + liste_pass[j:]  # reconstitue l'ordre en y mettant le segment inversé
+                nouv_longueur = longueurTour(x, y, liste_pass2)  # calcule la longueur de ce nouvel ordre
+
+                if nouv_longueur < longueur:  # si la longueur du nouvel ordre est plus petite que l'ordre original
+                    longueur = nouv_longueur  # la longueur du nouvel ordre remplace la longueur originale
+                    liste_pass = liste_pass2  # le nouvel ordre remplace l'ordre original
+    return liste_pass
+########################################################################################################################
+
+
+############################################### fonctions d'affichage ##################################################
 def affchemin(chemin, dimensions):
     print("-1 pour les indices")
 
     for i in range(dimensions-1):
         print(chemin[i], " --> ", chemin[i+1])
+
+
+def Affichage(Tab):
+    for i in range(1,30):
+        if i < 10:
+            print(i, end="   ")
+        else:
+            print(i, end="  ")
+    print('(-1 pour les indexs du tableau) \n')
+    print('\n'.join(['\t'.join([str(cell) for cell in row])for row in Tab]))
+
 
 Lecture_Fichier()
