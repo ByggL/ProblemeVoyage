@@ -18,13 +18,28 @@ def extraction2(nomfic, dimensions: int, depart: int):
 def Lecture_Fichier():
     nomfic = 'att48.tsp'
     TSP = open(nomfic, 'r')  # ouverture du fichier
-    Name = TSP.readline().strip().split()[1]
-    Type = TSP.readline().strip().split()[1]
-    Comment = TSP.readline().strip().split()[1]   #Trouver comment extraire tout le reste de la ligne ...
+
+    Name = TSP.readline()
+    Name = Name.replace(' :', ':')
+    Name = Name.strip().split()[1]
+
+    Type = TSP.readline()
+    Type = Type.replace(' :', ':')
+    Type = Type.strip().split()[1]
+
+    Comment = TSP.readline()
+    Comment = Comment.replace('COMMENT : ', '')
+    Comment = Comment.replace('COMMENT: ', '')
+
     Dimension = TSP.readline()
     Dimension = Dimension.replace(' :',':')
     Dimension = int(Dimension.strip().split()[1])
-    EDGE_WEIGHT_TYPE = TSP.readline().strip().split()[1]
+
+    EDGE_WEIGHT_TYPE = TSP.readline()
+    EDGE_WEIGHT_TYPE = EDGE_WEIGHT_TYPE.replace(' :', ':')
+    EDGE_WEIGHT_TYPE = EDGE_WEIGHT_TYPE.strip().split()[1]
+
+    print(Name,Type,Comment,Dimension,EDGE_WEIGHT_TYPE)
 
     for line in TSP:  # parcours du fichier
         if line.strip('\n') == 'EDGE_WEIGHT_SECTION':  # si matrice d'adjacence trouvée d'abord
@@ -179,7 +194,7 @@ def Affichage(Tab):
     print('\n'.join(['\t'.join([str(cell) for cell in row])for row in Tab]))
 
 def crea_fic(nom: str , type: str , comment: str , dimension: int , liste_passage: list):
-    solution = open("solution.txt", "w+")
+    solution = open("solution.txt", "w")
     solution.write("Nom :")
     solution.write(nom)
     solution.write("\n")
@@ -188,8 +203,21 @@ def crea_fic(nom: str , type: str , comment: str , dimension: int , liste_passag
     solution.write("\n")
     solution.write("Commentaire :")
     solution.write(comment)
+    solution.write("TOUR_SECTION")
     solution.write("\n")
-
+    for i in range(dimension-1):
+        solution.write(str(liste_passage[i]))
+        solution.write(" ---> ")
+        solution.write(str(liste_passage[i+1]))
+        solution.write("\n")
+    solution.write(str(liste_passage[dimension-1]))
+    solution.write(" ---> ")
+    solution.write("1")
+    solution.write("\n")
+    solution.write("-1")
+    solution.write("\n")
+    solution.write("EOF")
+    solution.close()
 
 
 
