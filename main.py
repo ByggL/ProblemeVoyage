@@ -16,7 +16,7 @@ def extraction2(nomfic, dimensions: int, depart: int):
 
 
 def Lecture_Fichier():
-    nomfic = 'bayg29.tsp'
+    nomfic = 'att48.tsp'
     TSP = open(nomfic, 'r')  # ouverture du fichier
     Name = TSP.readline().strip().split()[1]
     Type = TSP.readline().strip().split()[1]
@@ -70,6 +70,8 @@ def Lecture_Fichier():
     plt.plot(xo, yo, "o-")
 
     plt.show()
+
+    crea_fic(Name,Type,Comment,Dimension,liste_passage)
     TSP.close()
 
 
@@ -175,6 +177,20 @@ def Affichage(Tab):
             print(i, end="  ")
     print('(-1 pour les indexs du tableau) \n')
     print('\n'.join(['\t'.join([str(cell) for cell in row])for row in Tab]))
+
+def crea_fic(nom: str , type: str , comment: str , dimension: int , liste_passage: list):
+    solution = open("solution.txt", "w+")
+    solution.write("Nom :")
+    solution.write(nom)
+    solution.write("\n")
+    solution.write("Type :")
+    solution.write(type)
+    solution.write("\n")
+    solution.write("Commentaire :")
+    solution.write(comment)
+    solution.write("\n")
+
+
 
 
 Lecture_Fichier()
