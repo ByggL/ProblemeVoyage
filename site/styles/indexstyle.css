@@ -1,6 +1,13 @@
+html {
+    background-color: lightgrey;
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+}
+
 header {
     background-color: forestgreen;
     text-align: center;
+    padding-bottom: 20px;
+    padding-top: 10px;
 }
 
 .liens {
@@ -17,4 +24,10 @@ header {
     font-size: xx-large;
     text-align: center;
     font-weight: bold;
+    text-decoration: underline;
+}
+
+body {
+    background-color: green;
+    padding: 10px;
 }
