@@ -1,6 +1,6 @@
-from math import *
-import re
-import matplotlib.pyplot as plt
+from math import *  # principalement pour le calcul de distances
+import re  # pour transformer la string en liste
+import matplotlib.pyplot as plt  # pyplot, affichage
 
 
 def extraction2(nomfic, dimensions: int, depart: int):
@@ -16,7 +16,8 @@ def extraction2(nomfic, dimensions: int, depart: int):
 
 
 def Lecture_Fichier():
-    nomfic = 'att48.tsp'
+    nom = input("Nom du fichier : ")
+    nomfic = nom + ".tsp"
     TSP = open(nomfic, 'r')  # ouverture du fichier
 
     Name = TSP.readline()
@@ -76,17 +77,15 @@ def Lecture_Fichier():
     print(Name,Type,Comment,int(Dimension),EDGE_WEIGHT_TYPE)
     affchemin(liste_passage, Dimension)  # affichage du chemin trouvé
     print(longueurTour(x, y, liste_passage))
-    test_objectif: list = [1, 28, 6, 12, 9, 26, 3, 29, 5, 21, 2, 20, 10, 4, 15, 18, 14, 17, 22, 11, 19, 25, 7, 23, 8, 27, 16, 13, 24, 1]
-    print(longueurTour(x, y, test_objectif))
 
     xo = [x[o-1] for o in liste_passage]
     yo = [y[o-1] for o in liste_passage]
 
+    crea_fic(Name, Type, Comment, Dimension, liste_passage)
     plt.plot(xo, yo, "o-")
 
     plt.show()
 
-    crea_fic(Name,Type,Comment,Dimension,liste_passage)
     TSP.close()
 
 
@@ -158,7 +157,8 @@ def permutation(x, y, liste_pass: list, dimensions):
     longueur = longueurTour(x, y, liste_pass)  # assigne la longueur de l'ordre initial à d
     longueur0 = longueur+1
     it: int = 1  # comptage des itérations
-    while longueur < longueur0:
+    miniter = 20
+    while longueur < longueur0 or it < miniter:
         it += 1
         print("itération", it, " : distance =", longueur)
         longueur0 = longueur
