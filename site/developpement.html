@@ -27,28 +27,36 @@
             Au début du développement du programme nous avons essayer d'utiliser une Bibliothèque nommée TSPLIB95.<br>
             C'est une Bibliothèque qui permet de lire les fichier TSP et d'associer une variable à chaque information.<br>
             Elle peut également résoudre directement le problème du voyageur de commerce.<br>
-            Mais nous avons pensez que le projet ne devais pas être résolu de cette façon car il n'y aurais eu casiment aucun code venant de nous
+            Mais nous avons pensé que le projet ne devais pas être résolu de cette façon car
+            non seulement la bibliothèque ne fonctionnait pas avec les fichiers fournis <br>(nous supposons que c'est intentionnel) mais
+            de plus il n'y aurais eu quasiment aucun code venant de nous.
             <br><br>
         </p>
         <h2>La lecture du fichier et le stockage des variables</h2>
         <p>
-            Nous avons donc commencer par lire le fichier en associant à une variable le nom , le Type , le commentaire et la dimension. <br>
-            Ensuite il snous fallais une solution pour différencier les fichier avec une mattrice adjacente et ceux sans. <br>
-            Nous avons remarquer la présence du text "NODE_COORD_SECTION" dans le fichier sans matrice d'adjacence , "NODE_COORD_SECTION" n'est pas présent dans le fichier avec la matrice. <br>
-            Si le fichier contient une matrice adjacente celle-ci est stocker dans une liste sinon nous la calulons grace au coordonées fournis dans le fichier TSP. <br>
-            Enfin nous stockons les coordonées dans une liste pour le calculs de la matrice d'adjacence. <br>
+            Nous avons donc commencé par lire le fichier en associant à une variable le nom , le type , le commentaire et la dimension. <br>
+            Ensuite il nous fallait une solution pour différencier les fichiers avec une mattrice d'adjacence et ceux sans. <br>
+            Nous avons remarqué la présence du texte "NODE_COORD_SECTION" dans le fichier sans matrice d'adjacence, <br>"NODE_COORD_SECTION" 
+            n'est pas présent dans le fichier avec la matrice. <br>
+            Si le fichier contient une matrice adjacente, celle-ci est stockée dans une liste, sinon nous la calculons grace au coordonnées fournies dans le fichier TSP. <br>
+            Enfin nous stockons les coordonnées dans une liste pour le calcul de la matrice d'adjacence. <br>
             <br>
-        <p>
-            La lecture du fichier nous a poser un petit car certain espace qui ont empécher la récupération direct des variables de nom, type, commentaire et dimension.
-            Nous avons donc remplacer les " :" en ":"
         </p>
-
+        <p>
+            La lecture du fichier nous a poser un petit problème car certains espaces ont empéché la récupération direct 
+            des variables de nom, type, commentaire et dimension.
+            Nous avons donc remplacé les " :" en ":".
         </p>
 
         <h2>La matrice d'adjacence</h2>
         <p>
-            Extraire la matrice à été compliquer car dans le fichier elle est sous forme de chaîne de caractère. <br>
-            Pour régler ce problème nous avons transformer la chaine de caractère en liste puis changer chaque valeur en entier (int) et nous les avons ranger dans un tableau <br>
+            Extraire la matrice à été compliqué car dans le fichier elle est sous forme de chaîne de caractère (<code>string</code>). <br>
+            Pour régler ce problème, nous avons transformé la chaine de caractère en liste puis changé chaque valeur en entier 
+            (<code>int</code>) et nous les avons rangé dans un tableau à deux dimensions. <br><br>
+            A noter que la matrice originelle était incorrectemment alignée (la distance en les noeuds 1 et 2 était dans la même
+            colonne que la distance entre les noeuds 2 et 3), nous avons donc refait l'alignement et avons completé le tableau de
+            manière à ce que chaque ligne (correspondant à un noeud) ait accès directement à toutes les distances par rapport 
+            aux autres noeuds. <br><br>
             Voici à quoi ressemble notre tableau après avoir été converti : <br>
         </p>
         <table>
