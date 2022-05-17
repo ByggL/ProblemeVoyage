@@ -22,12 +22,34 @@
             <li>premiers parcours</li>
             <li>etc etc...</li>
         </ul>
+        <h2>Une Bibliothèque intéressante</h2>
+        <p>
+            Au début du développement du programme nous avons essayer d'utiliser une Bibliothèque nommée TSPLIB95.<br>
+            C'est une Bibliothèque qui permet de lire les fichier TSP et d'associer une variable à chaque information.<br>
+            Elle peut également résoudre directement le problème du voyageur de commerce.<br>
+            Mais nous avons pensez que le projet ne devais pas être résolu de cette façon car il n'y aurais eu casiment aucun code venant de nous
+            <br><br>
+        </p>
+        <h2>La lecture du fichier et le stockage des variables</h2>
+        <p>
+            Nous avons donc commencer par lire le fichier en associant à une variable le nom , le Type , le commentaire et la dimension. <br>
+            Ensuite il snous fallais une solution pour différencier les fichier avec une mattrice adjacente et ceux sans. <br>
+            Nous avons remarquer la présence du text "NODE_COORD_SECTION" dans le fichier sans matrice d'adjacence , "NODE_COORD_SECTION" n'est pas présent dans le fichier avec la matrice. <br>
+            Si le fichier contient une matrice adjacente celle-ci est stocker dans une liste sinon nous la calulons grace au coordonées fournis dans le fichier TSP. <br>
+            Enfin nous stockons les coordonées dans une liste pour le calculs de la matrice d'adjacence. <br>
+            <br>
+        <p>
+            La lecture du fichier nous a poser un petit car certain espace qui ont empécher la récupération direct des variables de nom, type, commentaire et dimension.
+            Nous avons donc remplacer les " :" en ":"
+        </p>
 
+        </p>
 
-
-
-
-
+        <h2>La matrice d'adjacence</h2>
+        <p>
+            Extraire la matrice à été compliquer car dans le fichier elle est sous forme de chaîne de caractère. <br>
+            Pour régler ce problème nous avons transformer la chaine de caractère en liste puis changer chaque valeur en entier (int) et nous les avons ranger dans un tableau <br>
+        </p>
         <table>
             <tr>
                 <td>index</td>
@@ -127,6 +149,6 @@
         </table>
 
 
-        
+
     </body>
 </html>
