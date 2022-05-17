@@ -29,6 +29,7 @@ header {
 
 body {
     background-color: green;
+    padding: 10px;
 }
 
 #index {
@@ -48,5 +49,9 @@ table {
 
 td {
     border: solid black 1px;
+}
+
+p {
+    font-size: large;
 }
 
