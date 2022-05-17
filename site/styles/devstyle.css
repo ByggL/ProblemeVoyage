@@ -31,6 +31,22 @@ body {
     background-color: green;
 }
 
-table, th, td {
+#index {
+    background-color: lightblue;
+}
+
+#numville {
+    background-color: lightcoral;
+}
+
+table {
+    margin-left: auto;
+    margin-right: auto;
+    border: solid black 1px;
+    background-color: lightgrey;
+}
+
+td {
     border: solid black 1px;
 }
+
