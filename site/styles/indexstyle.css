@@ -3,6 +3,10 @@ html {
     font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
 }
 
+p {
+    font-size: large;
+}
+
 header {
     background-color: forestgreen;
     text-align: center;
