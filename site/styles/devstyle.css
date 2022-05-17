@@ -30,3 +30,7 @@ header {
 body {
     background-color: green;
 }
+
+table, th, td {
+    border: solid black 1px;
+}
