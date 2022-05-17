@@ -40,6 +40,7 @@ h2 {
 body {
     background-color: green;
     padding: 10px;
+    padding-bottom: 50px;
 }
 
 #index {
