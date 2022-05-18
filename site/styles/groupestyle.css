@@ -29,6 +29,18 @@ header {
 
 body {
     background-color: green;
-    padding-bottom: 50px;
     padding: 10px;
+    padding-bottom: 50px;
+}
+
+h2 {
+    padding-left: 20px;
+}
+
+.noms {
+    display: flex;
+}
+
+.perso {
+    flex: 50%;
 }
