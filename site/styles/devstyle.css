@@ -4,8 +4,8 @@ html {
 }
 
 p {
+    position: relative;
     font-size: large;
-    text-align: justify;
     padding-right: 20%;
 }
 
@@ -55,6 +55,7 @@ body {
 }
 
 table {
+    position: relative;
     margin-left: 20px;
     border: solid black 1px;
     background-color: lightgrey;
