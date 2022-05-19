@@ -159,10 +159,31 @@
         
         <h2>La création du chemin</h2>
         <p>
-            Lors de la première tentative de création du chemin nous étions parti du principe que le code allait partir de la ville 1 et aller à la ville la plus proche et ainsi de suite.<br>
-            Mais le problème de cette technique est que le chemin n'est clairement pas optimiser et ne passe pas par toutes les villes. De plus le chemin pouvait passer plusieurs fois par la même ville.<br>
-            Donc nous avons initialisé un chemin de base qui commence à la ville 1 puis passe part toutes les villes de 1 à la dernière, puis nous utilisons une fonction nommée "permutation"
-            qui permet d'optimiser le chemin.<br>
+            Il y a eu deux versions différentes de création de chemin élaborées.<br>
+        </p>
+        <p>
+            <ul style="list-style-type:none">
+                <li><h3>Etapes de la 1<sup>ère</sup> version :</h3></li>
+                <li>
+                    <ol>
+                        <li>aller à la 1<sup>ère</sup> ligne</li>
+                        <li>parcourir la ligne jusqu'à trouver la distance la plus courte</li>
+                        <li>aller à la ligne correspondant à la ville la plus proche</li>
+                        <li>répéter à partir de [2] jusqu'à complétion du chemin</li>
+                    </ol>
+                </li>
+            </ul>
+        </p>
+        <p>
+            Cependant, cette version était loin d'être parfaite puisque il s'agissait d'un algorithme glouton permettant les 
+            croisements dans le chemin.<br><br>
+
+            La seconde version consistait, à partir d'un chemin intial, à prendre tous les couples de deux noeuds à l'aide
+            d'une double boucle, d'inverser l'ordre du chemin entre les deux noeuds puis de reconstituer l'ordre complet
+            avec ce segment inversé et vérifier si ce nouvel ordre est plus court que le précédent.<br>
+            La vérification est faite à chaque inversion (donc pour un ordre passant par N noeuds, la vérification est faite
+            N x (N-2) fois). <br>
+            On peut réitérer toute l'opération un nombre donné de fois pour optimiser le chemin autant que possible.
         </p>
 
         <h2>L'affichage du chemin</h2>
