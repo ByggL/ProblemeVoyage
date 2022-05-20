@@ -44,3 +44,7 @@ h2 {
 .perso {
     flex: 50%;
 }
+
+#centr {
+    text-align: center;
+}
