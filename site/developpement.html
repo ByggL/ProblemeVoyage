@@ -159,8 +159,10 @@
                 <li>
                     <ol>
                         <li>aller à la 1<sup>ère</sup> ligne</li>
-                        <li>parcourir la ligne jusqu'à trouver la distance la plus courte</li>
-                        <li>aller à la ligne correspondant à la ville la plus proche</li>
+                        <li>parcourir la ligne jusqu'à trouver la distance la plus courte, correspondant à une ville
+                            n'ayant pas déjà été parcourue
+                        </li>
+                        <li>aller à la ligne correspondant cette la ville la plus proche</li>
                         <li>répéter à partir de [2] jusqu'à complétion du chemin</li>
                     </ol>
                 </li>
@@ -180,7 +182,12 @@
 
         <h2>L'affichage du chemin</h2>
         <p>
-
+            Une fois le chemin optimal calculé, nous avons utilisé la bibliothèque <i>pyplot</i> afin d'obtenir un affichage
+            graphique du trajet. <br>
+            Pour ce faire, l'ensemble des coordonnées des noeuds ont été inscrits selon l'ordre de passage
+            dans deux listes (une pour l'axe des abcisses, l'autre pour l'axe des ordonnées). <br>
+            Enfin, les deux listes de coordonnées ont été renseignées à <i>pyplot</i>, avec le paramètre pour tracer un nuage
+            de points reliés (paramètre "<code>o-</code>").
         </p>
 
         <h2>La création du fichier réponse</h2>
@@ -189,6 +196,8 @@
             Après l'affichage du chemin, notre code crée un fichier nommé "solution.txt" avec le nom du fichier, le type, le commentaire et le chemin.<br>
             Cette étape était la plus facile à coder.<br>
         </p>
+
+        <h2>Chronologie des étapes du projet</h2>
         <div id="gantt" ><img src="ProjetL1MI.png" alt="Image du diagramme de gantt"></div>
     </body>
 </html>
