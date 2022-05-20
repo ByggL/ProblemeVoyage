@@ -69,13 +69,11 @@ pre code {
     padding-right: auto;
   }
 
-<<<<<<< HEAD
-  #centr {
+#centr {
       margin-left: auto;
       margin-right: auto;
   }
 
-=======
 a:link {
     color:darkblue;
     text-decoration: none;
@@ -90,4 +88,4 @@ a:hover {
     font-weight: bold;
     font-style: italic;
 }
->>>>>>> 59280eed3a65eee81b233c503bd0e7ad2eb04b4b
+
