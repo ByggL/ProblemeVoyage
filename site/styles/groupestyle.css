@@ -34,7 +34,7 @@ body {
 }
 
 h2 {
-    padding-left: 20px;
+    text-align: center;
 }
 
 .noms {
@@ -62,4 +62,8 @@ a:visited {
 a:hover {
     font-weight: bold;
     font-style: italic;
+}
+
+ #mention {
+    text-align: center;
 }
