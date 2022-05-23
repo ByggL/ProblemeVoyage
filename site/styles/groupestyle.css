@@ -30,7 +30,6 @@ header {
 body {
     background-color: green;
     padding: 10px;
-    padding-bottom: 50px;
 }
 
 h2 {
@@ -66,4 +65,15 @@ a:hover {
 
  #mention {
     text-align: center;
+}
+
+footer {
+    background-color: forestgreen;
+    text-align: left;
+    margin-top: 20px;
+    margin-bottom: 10px;
+}
+
+footer p {
+    font-size: smaller;
 }

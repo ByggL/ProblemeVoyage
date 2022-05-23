@@ -40,7 +40,6 @@ h2 {
 body {
     background-color: green;
     padding: 10px;
-    padding-bottom: 50px;
 }
 
 #index {
@@ -84,4 +83,15 @@ a:visited {
 a:hover {
     font-weight: bold;
     font-style: italic;
+}
+
+footer {
+    background-color: forestgreen;
+    text-align: left;
+    margin-top: 20px;
+    margin-bottom: 10px;
+}
+
+footer p {
+    font-size: smaller;
 }
